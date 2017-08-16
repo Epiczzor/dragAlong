@@ -7,6 +7,7 @@ public class lineFollower : MonoBehaviour {
 	public splineController Line;
 	public float appliedVelocity = 1.0f;
 	public int currentNode = 0;
+	public GameObject vehicleMesh;
 	private GameObject[] nodeList;
 	private bool trackEnd = false;
 	void Start () {
@@ -56,6 +57,7 @@ public class lineFollower : MonoBehaviour {
 		if(currentNode < (nodeList.Length-1)){
 			Vector3 appliedDirction = moveAlongLine(transform.position,nodeList[currentNode+1].transform.position);
 			transform.Translate(appliedDirction * appliedVelocity * Time.deltaTime);
+			vehicleMesh.transform.rotation = Quaternion.Lerp(vehicleMesh.transform.rotation,nodeList[currentNode].transform.rotation,Time.deltaTime * 5.0f);
 		}
 		else if(!trackEnd) onTrackEnd();
 	}
